@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TutorCopilot</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">Tutor<span>Copilot</span></div>
+      <div id="health" class="badge">checking…</div>
+
+      <section>
+        <h3>Weak topics</h3>
+        <div id="weak-topic" class="muted">—</div>
+        <button id="refresh-weak" class="ghost" type="button">Refresh</button>
+      </section>
+
+      <section>
+        <h3>Conversation</h3>
+        <div id="conv-id" class="mono muted">new</div>
+        <button id="btn-new" class="ghost" type="button">Save &amp; new</button>
+        <div class="note">Saving writes this chat to <span class="mono">data/episodic/</span> — real training data.</div>
+      </section>
+
+      <div class="spacer"></div>
+      <footer><a href="/docs" target="_blank" rel="noopener">API docs &rarr;</a></footer>
+    </aside>
+
+    <main class="chat">
+      <div id="messages">
+        <div class="welcome" id="welcome">
+          <h2>Ask your tutor</h2>
+          <p>Questions about RAG, agents, chunking, evaluation, fine-tuning…</p>
+          <p class="muted">While the agent works you'll see its thoughts and tool calls live, step by step.</p>
+        </div>
+      </div>
+
+      <div id="banner" class="banner hidden"></div>
+
+      <form id="composer" autocomplete="off">
+        <textarea id="input" rows="2" maxlength="5000"
+          placeholder="Ask a question… (Enter to send, Shift+Enter for newline)"></textarea>
+        <button id="mic" type="button" class="ghost" title="Dictate" aria-label="Microphone">&#127908;</button>
+        <button id="send" type="submit">Send</button>
+        <button id="stop" type="button" class="hidden danger">Stop</button>
+        <button id="tts" type="button" class="ghost" title="Answer voice: off" aria-label="Answer voice">&#128263;</button>
+      </form>
+    </main>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

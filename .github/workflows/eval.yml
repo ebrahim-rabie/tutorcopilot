@@ -1,0 +1,47 @@
+name: eval-gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      TC_USE_RERANK: "false" # no cross-encoder download in CI
+      # Optional: generation/conversation evals skip (gate treats as pass)
+      # when this secret is absent.
+      TC_LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+
+      - name: Lint
+        run: ruff check app scripts tests
+
+      - name: Unit tests (hermetic)
+        run: pytest
+
+      - name: Build index
+        run: python scripts/index_docs.py
+
+      # Regressions vs the committed pinned baseline (evals/gate_baseline.json)
+      # and absolute floors: agent check exit code, tool_faithfulness == 1.0,
+      # train >= 1, faithfulness >= threshold when a judge ran.
+      - name: Eval gate
+        run: python scripts/run_evals.py --gate --no-rerank --baseline evals/gate_baseline.json
+
+      # Trend check vs the committed pinned baseline (evals/drift_baseline.json):
+      # WARN/FAIL bands on unfavourable moves in export + gate metrics.
+      - name: Drift check
+        run: python scripts/drift_check.py

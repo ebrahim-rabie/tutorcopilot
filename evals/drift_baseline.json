@@ -1,0 +1,16 @@
+{
+  "export.n_raw_turns": 0.0,
+  "export.n_pure_turns": 0.0,
+  "export.n_examples": 0.0,
+  "export.kept_ratio": 0.0,
+  "export.dedup_ratio": 0.0,
+  "export.n_train": 0.0,
+  "export.n_val": 0.0,
+  "export.tool_calls_total": 0.0,
+  "export.n_failed_generations": 0.0,
+  "export.failed_generation_ratio": 0.0,
+  "retrieval.mrr": 0.8889,
+  "retrieval.hit_rate_at_1": 0.7778,
+  "retrieval.hit_rate_at_3": 1.0,
+  "retrieval.hit_rate_at_5": 1.0
+}

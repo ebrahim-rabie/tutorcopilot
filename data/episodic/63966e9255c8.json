@@ -1,0 +1,19 @@
+{
+  "conversation_id": "63966e9255c8",
+  "created_at": "2026-09-29T22:36:13.377826",
+  "metadata": {},
+  "turns": [
+    {
+      "turn_id": "65afb4b4",
+      "timestamp": 1790710560.831532,
+      "user_message": "Use the search_knowledge tool to find how the eval gate handles skipped metrics, then summarize",
+      "assistant_message": "The eval gate is designed to be tolerant of missing or intentionally skipped metrics. When a metric is marked as **skipped** (e.g., because it is not applicable to a particular model version or the evaluation data is unavailable), the gate simply ignores that metric in its decision logic. Promotion to the next stage (staging or production) proceeds if **all non\u2011skipped metrics** meet their configured thresholds. If any required metric fails, the gate blocks promotion. This behavior ensures that a missing metric does not automatically cause a failure, while still enforcing that every metric that is evaluated must satisfy its target. The gate also logs which metrics were skipped for auditability, so downstream reviewers can see why a promotion decision was made despite incomplete coverage. [1]",
+      "tools_used": [
+        "search_knowledge"
+      ],
+      "topics": [],
+      "success": true,
+      "trace_id": "c3764daa4f39"
+    }
+  ]
+}
